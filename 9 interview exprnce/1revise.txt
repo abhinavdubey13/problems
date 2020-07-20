@@ -1,0 +1,9 @@
+1. histogram area
+
+2. next greater element in array
+
+3. special stack (get min in O(1))
+
+4. inorder successor and predecessor of a given node in BST
+
+

@@ -1,0 +1,9 @@
+1. check if list is palindrome
+2. reverse list in group of k
+3. find longest palindromes in list 
+4. rearrange alternate 1st and last 
+5. remove duplicates from unsorted -LL
+
+6. merge 2 asceding-sorted list into descding sorted list w/o reversing at any point of time
+7. clone a list with next and random pointers
+

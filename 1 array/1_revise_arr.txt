@@ -1,0 +1,15 @@
+1. count inversions
+2. find pivot in sorted rotated array : how to decide in which subarray to move
+3. trapping rain water : O(1) space approach and normal approach as well
+4. number of platforms
+5. median of 2 sorted arrays
+6. sort array of 0-1-2
+7. max sum without adjacent elements
+8. count pairs with given diff
+9. equillibrium index : index before and after which sum is same : O(1) space
+10.count magic triplets : a triplet (a[i], a[j], a[k]) is called a Magic Triplet if a[i] < a[j] < a[k] and i < j < k
+
+11. count triangles
+12. longest sub-arrays whose sum is k (and whose sum is divisible by k)
+13. minimize difference in heights
+14. max tip calculator

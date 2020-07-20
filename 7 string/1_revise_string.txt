@@ -1,0 +1,7 @@
+1. largest palindromic substring
+2. good or bad string (based on vowel , consonant and ?)
+3. ternary expression to tree
+
+4. longest substring with k uniq chars
+5. longest prefix which is also sufffix (KMP)
+5. minimum numbers of cuts , such that each is  power of 5

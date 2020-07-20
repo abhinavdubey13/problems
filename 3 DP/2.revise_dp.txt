@@ -1,0 +1,18 @@
+1. string CRUD : number of crud operations to convert source to target
+2. egg drop
+3. number of sequences of the form :  a^i...b^j...c^k
+4. alternate coins game , both players play optimally
+
+5  longest repeating sub seq.  (such that all indices of same chars are different)
+6. box stacking problem
+
+
+7. number of decodings
+8. regex pattern matching
+9. string interleaving
+10. max product subarray
+
+
+11. (x25) maximum number of non-empty non-overlapping subarray with sum equals a given value : O(n) 
+
+12. (x23) partition s such that every substring of the partition is a palindrome. Return all possible palindrome partitioning of s 

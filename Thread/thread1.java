@@ -1,25 +1,25 @@
 
 class thread1 {
-
-    
-    public static void main(String[] args) {
-
-        Thread.currentThread().setName("ramu kaka");
-
-        MyRunnable myRunnable = new MyRunnable();
-        Thread thread = new Thread(myRunnable, "shamu kaka");
-        thread.start();
-
-        System.out.println("main : " + Thread.currentThread().getName());
+    public static void main(String[] args) throws InterruptedException {
+        MyThread myThread = new MyThread();
+        myThread.start();
+        myThread.join();
+        for (int i = 0; i < 3; i++) {
+            System.out.println("main");
+        }
     }
-
 }
 
-class MyRunnable implements Runnable {
-
+class MyThread extends Thread {
     @Override
     public void run() {
-        System.out.println("child : " + Thread.currentThread().getName());
-    }
+        for (int i = 0; i < 3; i++) {
+            System.out.println("CHILD");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
 
+            }
+        }
+    }
 }

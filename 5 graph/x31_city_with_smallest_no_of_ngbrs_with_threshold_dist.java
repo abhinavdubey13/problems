@@ -2,25 +2,34 @@ import java.util.*;
 
 /**
  * 
- * leetcode id : 1319
+ * leetcode id : 1334
  * 
  * 
- * There are n computers numbered from 0 to n-1 connected by ethernet cables 
- * connections forming a network where connections[i] = [a, b] 
- * represents a connection between computers a and b. Any computer can reach any other computer directly or indirectly through the network.
+ * There are n cities numbered from 0 to n-1. 
+ * 
+ * Given the array edges where edges[i] = [fromi, toi, weighti] represents a bidirectional and weighted edge between cities 
+ * fromi and toi, and given the integer distanceThreshold.
  * 
  * 
- * Given an initial computer network connections. 
- * You can extract certain cables between two directly connected computers, and place them between any pair of disconnected computers to make them directly connected. 
+ * Return the city with the smallest number of cities that are reachable through some path and whose distance is at most distanceThreshold, 
+ * If there are multiple such cities, return the city with the greatest number.
  * 
- * 
- * Return the minimum number of times you need to do this in order to make all the computers connected. If it's not possible, return -1
+ * Notice that the distance of a path connecting cities i and j is equal to the sum of the edges' weights along that path.
  * 
  * 
  * =========
  * example : 
  * =========
  * 
+ * Input: n = 4, edges = [[0,1,3],[1,2,1],[1,3,4],[2,3,1]], distanceThreshold = 4
+ * output: 3
+ * Explanation: The figure above describes the graph. 
+ * The neighboring cities at a distanceThreshold = 4 for each city are:
+ * City 0 -> [City 1, City 2] 
+ * City 1 -> [City 0, City 2, City 3] 
+ * City 2 -> [City 0, City 1, City 3] 
+ * City 3 -> [City 1, City 2] 
+ * Cities 0 and 3 have 2 neighboring cities at a distanceThreshold = 4, but we have to return city 3 since it has the greatest number.
  * 
  */
 
@@ -31,11 +40,11 @@ import java.util.*;
  * APPROACH : 
  * ============= 
  * 
- * using DSU
+ * using BFS on every node
  * 
- * keep track of reduant connections and number of components at last
+ * but here instead of simple queue , we use priority queue
  * 
- * depending on these 2 we will have our answer
+ * and count visited nodes
  * 
  * 
  * 
@@ -112,7 +121,8 @@ class Solution {
     }
 
     int bfs(List<List<Edge>> graph, int start, int n, int thresh) {
-        Queue<Q_helper> q = new LinkedList<>();
+        // Queue<Q_helper> q = new LinkedList<>();
+        PriorityQueue<Q_helper> q = new PriorityQueue<>((a, b) -> -1 * (a.thresh_left - b.thresh_left));
 
         boolean[] vis = new boolean[n];
 
@@ -122,14 +132,18 @@ class Solution {
 
         while (q.size() > 0) {
             Q_helper polled = q.poll();
+            vis[polled.city] = true;
+
             int thresh_left = polled.thresh_left;
 
-            for (Edge e : graph.get(polled.city)) {
+            List<Edge> ngbrs = graph.get(polled.city);
+
+            for (Edge e : ngbrs) {
 
                 int thresh_required = e.wt;
                 if (!vis[e.to] && thresh_left >= thresh_required) {
                     q.add(new Q_helper(e.to, thresh_left - thresh_required));
-                    vis[e.to] = true;
+                    // vis[e.to] = true;
                 }
             }
         }

@@ -1,27 +1,47 @@
+
 import java.util.*;
 
 /**
- * 
- * leetcode id : 
- * 
- * 
+ *
+ * leetcode id : 1557
+ *
+ * Given a directed acyclic graph, with n vertices numbered from 0 to n-1, and an array edges where edges[i] = [fromi, toi] represents a directed edge from node fromi to node toi.
+ *
+ * Find the smallest set of vertices from which all nodes in the graph are reachable. It's guaranteed that a unique solution exists.
+ *
+ * Notice that you can return the vertices in any orde
+ *
+ *
+ *
  * =========
- * example : 
+ * example :
  * =========
- * 
- * 
- * 
+ *
+ *
+ *
  */
 
 /**
- * 
- * 
- * ============= 
- * APPROACH : 
- * ============= 
- * 
- * 
- * 
+ *
+ *
+ * =============
+ * APPROACH :
+ * =============
+ *
+ * Just return the nodes with no in-degres.
+ *
+ *
+ * Explanation
+ * Quick prove:
+ *
+ * Necesssary condition: All nodes with no in-degree must in the final result,
+ * because they can not be reached from
+ * All other nodes can be reached from any other nodes.
+ *
+ * Sufficient condition: All other nodes can be reached from some other nodes.
+ * Sufficient condition: All other nodes can be reached from some other nodes.
+ *
+ *
  */
 
 class x33_minimum_vertices_to_reach_all_nodes {
@@ -61,34 +81,18 @@ class Solution {
 
     List<Integer> function(int n, List<List<Integer>> edges) {
 
-        List<Node> arr = new LinkedList<>();
+        List<Integer> res = new ArrayList<>();
 
-        for (int i = 0; i < n; i++) {
-            arr.add(new Node(i, 0, 0));
-        }
+        int[] in = new int[n];
 
-        for (int i = 0; i < edges.size(); i++) {
-            List<Integer> ith = edges.get(i);
-            int u = ith.get(0);
-            int v = ith.get(1);
-            arr.get(u).out++;
-            arr.get(v).in++;
-        }
+        for (List<Integer> e: edges)
+            in[e.get(1)] = 1;
 
-        PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> {
-            if (a.out != b.out) {
-                return -1 * (a.out - b.out);
-            } else if (a.in != b.in) {
-                return (a.in - b.in);
-            } else {
-                return (a.i - b.i);
-            }
-        });
+        for (int i = 0; i < n; ++i)
+            if (in[i] == 0)
+                res.add(i);
+        return res;
 
-        for (int i = 0; i < arr.size(); i++) {
-            pq.add(arr.get(i));
-        }
 
-        return new ArrayList<>();
     }
 }

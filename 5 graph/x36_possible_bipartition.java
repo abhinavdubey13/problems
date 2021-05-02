@@ -30,7 +30,9 @@ import java.util.*;
  * =============
  *
  * 
- * back tracking
+ * using BFS
+ * 
+ * 
  * 
  * 
  */
@@ -58,15 +60,22 @@ class Solution {
 
     public boolean function(int N, int[][] dislikes) {
         int[] color = new int[N + 1];
+
         List<List<Integer>> adj = new ArrayList<>(N + 1);
-        for (int i = 0; i <= N; i++)
+
+        //form an adjacency list , undirected graph
+        for (int i = 0; i <= N; i++) {
             adj.add(new ArrayList<Integer>());
+        }
         for (int[] d : dislikes) {
             adj.get(d[0]).add(d[1]);
             adj.get(d[1]).add(d[0]);
         }
 
         for (int i = 1; i <= N; i++) {
+
+            //if ussigned to any group
+
             if (color[i] == 0) {
                 color[i] = 1;
                 Queue<Integer> q = new LinkedList<>();

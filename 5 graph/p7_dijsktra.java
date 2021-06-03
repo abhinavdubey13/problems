@@ -3,10 +3,12 @@ import java.util.*;
 /**
  *
  * 
+ * given 
+ * 1. a directed weighted graph
+ * 2. number of nodes in the graph
+ * 3. src node
  * 
- * ==========
- * example :
- * ==========
+ * find shortest dist from src to all other nodes 
  * 
  *
  * 
@@ -27,7 +29,7 @@ import java.util.*;
  * 
  */
 
-//used for directed weighted grapg
+//used for directed weighted graph
 class Edge {
     int to;
     int weight;
@@ -56,6 +58,7 @@ class Heap_helper implements Comparable<Heap_helper> {
 
     //this is done because , when we want to delete a specific node , we cannot pass new Heap_helper(v,d)
     //it will not delete , so we need to override this method
+    @Override
     public boolean equals(Object o) {
         Heap_helper x = (Heap_helper) o;
         if (this.vertex == x.vertex & this.distance == x.distance) {
@@ -132,26 +135,18 @@ class Dijstra_directed_graph_using_adj_list {
         Arrays.fill(parent, -1); //parent of any node is not known in the beginning
 
         dist_from_src[src] = 0;
-        //donot set processed[src] , here , it will be done in the  below logic
 
         while (min_heap.size() > 0) {
-            Heap_helper min_dist = min_heap.poll();
+            Heap_helper polled = min_heap.poll();
 
-            ArrayList<Edge> neighbours = graph.get(min_dist.vertex);
+            ArrayList<Edge> neighbours = graph.get(polled.vertex);
             for (Edge n : neighbours) {
-                int i = min_dist.vertex;
+                int i = polled.vertex;
                 int j = n.to;
                 int edge_wt_ij = n.weight;
 
-                // boolean ngbr_is_unprocessed = !processed[j];
-
-                // boolean is_relaxble = (ngbr_is_unprocessed) ? relax_edge(i, j, edge_wt_ij, parent, dist_from_src)
-                //         : false;
-
-                boolean is_relaxble = relax_edge(i, j, edge_wt_ij, parent, dist_from_src);
-
+                boolean is_relaxble = relax_edge(i, j, edge_wt_ij, dist_from_src);
                 if (is_relaxble) {
-
                     //delete + add =  update (in heap)
                     min_heap.remove(new Heap_helper(j, dist_from_src[j]));
                     dist_from_src[j] = dist_from_src[i] + edge_wt_ij;
@@ -164,8 +159,8 @@ class Dijstra_directed_graph_using_adj_list {
         print_min_dist(num_vertices, src, dist_from_src, parent);
     }
 
-    // //relax an edge only if new weight is lesser than the previously known weight
-    static boolean relax_edge(int i, int j, int edge_wt_ij, int[] parent, int[] dist_from_src) {
+    //relax an edge only if new weight is lesser than the previously known weight
+    static boolean relax_edge(int i, int j, int edge_wt_ij, int[] dist_from_src) {
         if (dist_from_src[i] + edge_wt_ij < dist_from_src[j]) {
             return true;
         }
@@ -187,7 +182,9 @@ class Dijstra_directed_graph_using_adj_list {
 /**
  * 
  * type of graph : undirected , using matrix representation 
- * given NxN matrix representation of graph , implement dijkstra algorithm to fin min dist from a given source to every other vertex 
+ * 
+ * given NxN matrix representation of graph , 
+ * implement dijkstra algorithm to fin min dist from a given source to every other vertex 
  * 
  * 
  * 

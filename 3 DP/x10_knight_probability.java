@@ -22,7 +22,7 @@ import java.util.*;
  * ========
  * Example:
  * ========
- * Input: 3, 2, 0, 0
+ * Input: 3, 2, 0, 0 (n , jumps , x_init , y_init)
  * Output: 0.0625
  * Explanation: There are two moves (to (1,2), (2,1)) that will keep the knight on the board.
  * From each of those positions, there are also two moves that will keep the knight on the board.
@@ -44,7 +44,8 @@ import java.util.*;
  * else if we are inside the board with no jumps left , we return 1
  * 
  * 
- * A knight can move 8 different ways in a certain point at the board. Therefore, any result that move 1 step from the current point will contribute 1/8 to the final probability.
+ * A knight can move 8 different ways in a certain point at the board. 
+ * Therefore, any result that move 1 step from the current point will contribute 1/8 to the final probability.
  * 
  *
  * 
@@ -98,6 +99,8 @@ class x10_knight_probability {
                 + paths(N, row + 2, col + 1, jumps_left - 1, dp));
 
         //this is important
+        //as each of above move's move probability is 1/8
+        //so instead of mutiliplying each by 1/8 , we multiply sum by 1/8
         probability = (0.125) * probability;
 
         //update dp map

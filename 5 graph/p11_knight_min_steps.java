@@ -37,6 +37,17 @@ import java.util.*;
  * 
  * Finally we return distance of target position, when it gets pop out from queue.
  * 
+ * 
+ * nx | ny
+ * -1 , -2
+ * -1 ,  2
+ * 1  , -2
+ * 1  ,  2
+ * 
+ * -2 , -1
+ * -2 ,  1
+ * 2  , -1
+ * 2  ,  1
  *
  * 
  * 
@@ -84,7 +95,7 @@ class Knight_min_steps {
 
         int answer = -1;
 
-        visited.add(src[0] + "" + src[1]);
+        visited.add(src[0] + "@" + src[1]);
 
         while (q.size() > 0 && !reached) {
 
@@ -103,7 +114,7 @@ class Knight_min_steps {
                         answer = popped.num_steps_till_here + 1;
                         break;
                     } else {
-                        String key = nx + "" + ny;
+                        String key = nx + "@" + ny;
 
                         if (!visited.contains(key)) {
                             q.offer(new Queue_helper(nx, ny, popped.num_steps_till_here + 1));

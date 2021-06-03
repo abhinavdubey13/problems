@@ -184,3 +184,35 @@ class Solution_optimised {
     }
 
 }
+
+class Solution_optimised_Revision {
+
+    List<String> answer;
+
+    List<String> function(int n) {
+        answer = new ArrayList<>();
+        fun(0, 0, n, "");
+        return answer;
+    }
+
+    void fun(int opn, int cls, int n, String curr) {
+
+        if (opn > n || cls > n) {
+            return;
+        }
+
+        if (opn == n && cls == n) {
+            ans.add(curr);
+            return;
+        }
+
+        String s1 = curr + "(";
+        dfs(opn + 1, cls, n, s1);
+
+        if (opn > cls) {
+            String s2 = curr + ")";
+            dfs(opn, cls + 1, n, s2);
+        }
+    }
+
+}

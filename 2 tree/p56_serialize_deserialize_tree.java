@@ -96,7 +96,8 @@ class p56_serialize_deserialize_tree extends HELPER {
                 curr.left = new node(Integer.parseInt(splitted[i]));
                 queue.offer(curr.left);
             }
-            if (!splitted[++i].equals(NULL_REPRESENTATION)) {
+            i++;
+            if (!splitted[i].equals(NULL_REPRESENTATION)) {
                 curr.right = new node(Integer.parseInt(splitted[i]));
                 queue.offer(curr.right);
 

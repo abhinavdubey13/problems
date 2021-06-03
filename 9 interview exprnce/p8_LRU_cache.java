@@ -8,6 +8,23 @@ import java.util.*;
 
 /**
  * 
+ * ======
+ * GET : 
+ * ======
+ * case1 : if key exist , remove key from queue and put key at last
+ * case2 : if key does not exist , return null
+ * 
+ * 
+ * ======
+ * PUT :
+ * ======  
+ * case1. if key already exist : update hmap with new value , and also update queue by putting key at last
+ *  
+ * case2. if key is not there in hmap
+ * 2.1 hmap has empty slots => put in map , and queue at last
+ * 2.2 hmap is full => evict 1st element from q , and remove its <k,v> from map
+ *                  => put new key in map and update queue
+ *          
  * 
  * 
  * 

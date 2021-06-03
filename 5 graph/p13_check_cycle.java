@@ -58,18 +58,22 @@ public class p13_check_cycle {
 
 class Solution {
 
+    static boolean[] atleast_one_edge_leads_to_cycle;
+    static boolean[] done_explored;
+    static boolean[] on_stack;
+
     static boolean function(int num_nodes, ArrayList<ArrayList<Integer>> graph) {
 
-        boolean[] atleast_one_edge_leads_to_cycle = new boolean[num_nodes];
-        boolean[] done_explored = new boolean[num_nodes];
-        boolean[] being_explored = new boolean[num_nodes];
+        atleast_one_edge_leads_to_cycle = new boolean[num_nodes];
+        done_explored = new boolean[num_nodes];
+        on_stack = new boolean[num_nodes];
 
         Arrays.fill(atleast_one_edge_leads_to_cycle, false);
         Arrays.fill(done_explored, false);
-        Arrays.fill(being_explored, false);
+        Arrays.fill(on_stack, false);
 
         for (int i = 0; i < num_nodes; i++) {
-            dfs(i, graph, atleast_one_edge_leads_to_cycle, done_explored, being_explored);
+            dfs(i, graph);
         }
 
         //we will get to know which nodes are a part of any cycle
@@ -81,22 +85,21 @@ class Solution {
 
     }
 
-    static boolean dfs(int curr, ArrayList<ArrayList<Integer>> graph, boolean[] atleast_one_edge_leads_to_cycle,
-            boolean[] done_explored, boolean[] being_explored) {
+    static boolean dfs(int curr, ArrayList<ArrayList<Integer>> graph) {
 
         if (done_explored[curr]) {
             return atleast_one_edge_leads_to_cycle[curr];
         }
 
         //this is the main step , if we reach a node , which is currently being explored , then there is a cycle for sure
-        if (being_explored[curr]) {
+        if (on_stack[curr]) {
             return true;
         }
 
-        being_explored[curr] = true;
+        on_stack[curr] = true;
 
         for (Integer n : graph.get(curr)) {
-            boolean hasCycle = dfs(n, graph, atleast_one_edge_leads_to_cycle, done_explored, being_explored);
+            boolean hasCycle = dfs(n, graph);
             if (hasCycle) {
                 atleast_one_edge_leads_to_cycle[curr] = true;
                 break;
@@ -104,7 +107,7 @@ class Solution {
         }
 
         done_explored[curr] = true;
-        being_explored[curr] = false;
+        on_stack[curr] = false;
         return atleast_one_edge_leads_to_cycle[curr];
 
     }

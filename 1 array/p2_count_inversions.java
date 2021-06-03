@@ -65,14 +65,14 @@ class p2_count_inversions {
 
         while (left_ptr < left_arr.length && right_ptr < right_arr.length) {
 
-            if (left_arr[left_ptr] < right_arr[right_ptr]) {
+            if (left_arr[left_ptr] <= right_arr[right_ptr]) {
                 arr[original_ptr++] = left_arr[left_ptr++];
             } else {
                 arr[original_ptr++] = right_arr[right_ptr++];
 
                 //CHANGES ARE DONE HERE
                 //inversions = { number_of_elements_in_arr[left....mid] } - left_ptr
-                //ie. if left[i]>=right[j] , then all further indices in left are inversions
+                //ie. if left[i]>right[j] , then all further indices in left[] are inversions
                 //inversions are from idx=left_ptr till last index in left_arr ..................(JUST REMEMBER THIS , U'LL BE GOOD)
                 int left_arr_len = MID - LEFT + 1;
                 inversions += left_arr_len - left_ptr;

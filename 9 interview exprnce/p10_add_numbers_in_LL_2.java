@@ -6,7 +6,7 @@ import java.util.*;
  * 
  * add 2 numbers represented in linked list
  * 
- * head of LL is least significant digit : MSB (which makes this problem a bit tricky)
+ * head of LL is most significant digit : MSB (which makes this problem a bit tricky)
  * 
  *
  * ========

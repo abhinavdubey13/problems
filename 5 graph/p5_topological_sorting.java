@@ -71,7 +71,6 @@ class Solution {
 
         for (int i = 0; i < num_nodes; i++) {
             if (!visited[i]) {
-                visited[i] = true;
                 dfs(i, adj_list, visited, stk);
             }
         }
@@ -87,7 +86,7 @@ class Solution {
 
     static void dfs(int curr, ArrayList<ArrayList<Integer>> adj_list, boolean[] vis, Stack<Integer> stk) {
 
-        // vis[curr] = true;  //we can have it here or at the bottom , since graph is DAG it wont matter
+        vis[curr] = true;  //we can have it here or at the bottom , since graph is DAG it wont matter
 
         List<Integer> neighbours = adj_list.get(curr);
 
@@ -97,7 +96,6 @@ class Solution {
             }
         }
 
-        vis[curr] = true; //we can have it here or at the top , since graph is DAG it wont matter
         stk.add(curr);
     }
 

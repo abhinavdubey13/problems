@@ -40,9 +40,16 @@ import java.util.*;
  * 
  * Heaps
  * 
- * maintain 2 heaps : min an max heap
+ * 1. maintain 2 heaps 
+ * max heap ===> left
+ * min heap ===> right
  * 
- * if min_hp.size>=max_hp.size : min_heap's top is our median
+ * 2. add to right only if curr > right.peek()
+ * 
+ * 3. size(left) - size(right) can be 0 or 1 at any point of time
+ * 
+ * 4. if left>=right : 
+ * min_heap's top is our median
  * else max_heap's top is our median
  * 
   ============

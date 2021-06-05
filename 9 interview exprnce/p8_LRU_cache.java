@@ -26,7 +26,10 @@ import java.util.*;
  *                  => put new key in map and update queue
  *          
  * 
+ * TC = O(n)
  * 
+ * we can do both operations in O(1) time also 
+ * see IE in intellij-projects
  * 
  * 
  */

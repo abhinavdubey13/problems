@@ -69,7 +69,7 @@ class Solution {
     static int TIMER;
 
     static void driver() {
-        ArrayList<ArrayList<Integer>> graph = get_graph();
+        List<List<Integer>> graph = get_graph();
         int nodes = graph.size();
         List<Bridge> answer = find_bridges_using_tarjan(nodes, graph);
 
@@ -81,9 +81,9 @@ class Solution {
         System.out.println();
     }
 
-    static ArrayList<ArrayList<Integer>> get_graph() {
+    static List<List<Integer>> get_graph() {
 
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+        List<List<Integer>> graph = new LinkedList<>();
 
         // // undirected graph with 4 nodes : expected bridges are : 
         // // 2-3 , 1-2 , 0-1
@@ -103,7 +103,7 @@ class Solution {
         return graph;
     }
 
-    static List<Bridge> find_bridges_using_tarjan(int num_nodes, ArrayList<ArrayList<Integer>> graph) {
+    static List<Bridge> find_bridges_using_tarjan(int num_nodes, List<List<Integer>> graph) {
 
         Node_Info[] info = new Node_Info[num_nodes];
 
@@ -116,6 +116,7 @@ class Solution {
 
         Stack<Integer> stk = new Stack<>();
         List<Bridge> bridges = new LinkedList<>();
+
         for (int i = 0; i < num_nodes; i++) {
             boolean visited = info[i].discovery != -1;
             if (!visited) {
@@ -127,7 +128,7 @@ class Solution {
 
     }
 
-    static void dfs(int curr, Integer parent, ArrayList<ArrayList<Integer>> graph, Node_Info[] info, Stack<Integer> stk,
+    static void dfs(int curr, Integer parent, List<List<Integer>> graph, Node_Info[] info, Stack<Integer> stk,
             List<Bridge> bridges) {
 
         TIMER++;
@@ -143,7 +144,7 @@ class Solution {
             boolean is_tree_edge = (info[ngbr].discovery == -1);
 
             //if curr --> ngbr is back edge
-            //for back edge , we will not consider the immediate parent here 
+            //for back edge , we will not consider the immediate parent as ancestor here
             boolean is_back_edge = (info[ngbr].discovery > -1 && info[ngbr].on_stack && info[curr].parent != ngbr);
 
             //if curr --> ngbr is cross edge 
@@ -163,12 +164,8 @@ class Solution {
         //finding bridges
         for (Integer ngbr : graph.get(curr)) {
             //for all children of curr
-            if (info[ngbr].parent != null && info[ngbr].parent == curr) {
-
-                //strictly greater than , not equal
-                if (info[ngbr].low > info[curr].discovery) {
-                    bridges.add(new Bridge(curr, ngbr));
-                }
+            if (info[ngbr].parent != null && info[ngbr].parent == curr && info[ngbr].low > info[curr].discovery) {
+                bridges.add(new Bridge(curr, ngbr));
             }
         }
 

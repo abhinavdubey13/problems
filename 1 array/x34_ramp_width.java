@@ -17,7 +17,7 @@ import java.util.*;
  * Input: [6,0,8,2,1,5]
  * Output: 4
  * 
- * Explanation: The maximum (j-1) = (5-1)
+ * Explanation: The maximum (j-i) = (5-1)
  * arr[1] = 0 and arr[5] = 5.
  * 
  * 
@@ -77,7 +77,9 @@ class x34_ramp_width {
 
             if (arr[i] <= rMax[j]) {
                 ans = Math.max(ans, j - 1);
-                j++; // there can be more elements on right satisfying the constraint arr[i]<=arr[j], thus move j to right
+                j++; 
+                // there can be more elements on right satisfying the constraint arr[i]<=arr[j], 
+                // thus move j to right
             } else {
                 i++; // all elements on left of arr[i] are bigger, thus move i to right
             }

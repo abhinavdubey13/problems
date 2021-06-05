@@ -28,6 +28,7 @@ import java.util.*;
  * a node can be a cut vertex if is satisfies 1 of the 2 below :
  * 
  * 1. it is a root vertex of DFS tree , having atleast 2 children sub graphs
+ * or
  * 2. it is non-root vertex (n) , having atleast 1 child (x), such that low(x) >= disc(n)
  * 
  *   
@@ -43,17 +44,20 @@ class p16_articulation_points_using_tarjan_algo {
 }
 
 class Node_Info {
+    //same as normal TARJAN
     int low;
     int discovery;
-    int children;
+    boolean on_stack;
+
+    //extra properties
+    int children_count;
     Integer parent;
     boolean is_cut_vertex;
-    boolean on_stack;
 
     Node_Info(int l, int d, int c, Integer p, boolean is_cut, boolean is_on_stk) {
         low = l;
         discovery = d;
-        children = c;
+        children_count = c;
         parent = p;
         is_cut_vertex = is_cut;
         on_stack = is_on_stk;
@@ -65,7 +69,7 @@ class Solution {
     static int TIMER;
 
     static void driver() {
-        ArrayList<ArrayList<Integer>> graph = get_graph();
+        List<List<Integer>> graph = get_graph();
         int nodes = graph.size();
         List<Integer> answer = find_cut_vertices_using_tarjan(nodes, graph);
         System.out.print("articulation vertices are : ");
@@ -75,9 +79,9 @@ class Solution {
         System.out.println();
     }
 
-    static ArrayList<ArrayList<Integer>> get_graph() {
+    static List<List<Integer>> get_graph() {
 
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+        List<List<Integer>> graph = new LinkedList<>();
 
         // undirected graph with 2 nodes : expected cut vertices : 1
         // graph.add(new ArrayList<Integer>(Arrays.asList(1))); //neighbours of 0 (undirected - edge)
@@ -94,7 +98,7 @@ class Solution {
         return graph;
     }
 
-    static List<Integer> find_cut_vertices_using_tarjan(int num_nodes, ArrayList<ArrayList<Integer>> graph) {
+    static List<Integer> find_cut_vertices_using_tarjan(int num_nodes, List<List<Integer>> graph) {
 
         Node_Info[] info = new Node_Info[num_nodes];
 
@@ -105,8 +109,8 @@ class Solution {
 
         TIMER = -1;
         List<Integer> cut_vertices = new LinkedList<>();
-
         Stack<Integer> stk = new Stack<>();
+
         for (int i = 0; i < num_nodes; i++) {
             boolean visited = info[i].discovery != -1;
             if (!visited) {
@@ -124,7 +128,7 @@ class Solution {
         return cut_vertices;
     }
 
-    static void dfs(int curr, Integer parent, ArrayList<ArrayList<Integer>> graph, Node_Info[] info, Stack<Integer> stk,
+    static void dfs(int curr, Integer parent, List<List<Integer>> graph, Node_Info[] info, Stack<Integer> stk,
             List<Integer> cut_vertices) {
 
         TIMER++;
@@ -140,14 +144,14 @@ class Solution {
             boolean is_tree_edge = (info[ngbr].discovery == -1);
 
             //if curr --> ngbr is back edge
-            //for back edge , we will not consider the immediate parent here 
+            //for back edge , we will not consider the immediate parent as ancestor here
             boolean is_back_edge = (info[ngbr].discovery > -1 && info[ngbr].on_stack && info[curr].parent != ngbr);
 
             //if curr --> ngbr is cross edge 
             boolean is_cross_edge = (info[ngbr].discovery > -1 && !info[ngbr].on_stack);
 
             if (is_tree_edge) {
-                info[curr].children++;
+                info[curr].children_count++;
                 dfs(ngbr, curr, graph, info, stk, cut_vertices);
                 info[curr].low = Math.min(info[curr].low, info[ngbr].low);
             }
@@ -159,21 +163,21 @@ class Solution {
         }
 
         //CASE-1 : for root of the DFS tree , having atleast 2 children
-        if (info[curr].parent == null && info[curr].children > 1) {
+        if (info[curr].parent == null && info[curr].children_count > 1) {
             info[curr].is_cut_vertex = true;
         }
 
         //CASE-2 : for non-root vertices , we check if any child of current node
         //has low >= curr's discovery
-        //it means if curr is removed , can the child node still reach an ancestor of current node
+        //ie.if curr is removed , can the child node still reach an ancestor of current node ??
         //if yes : then curr node is NOT a cut-vertex
         if (info[curr].parent != null) {
+
             for (Integer ngbr : graph.get(curr)) {
                 //for all children of curr
-                if (info[ngbr].parent != null && info[ngbr].parent == curr) {
-                    if (info[ngbr].low >= info[curr].discovery) {
-                        info[curr].is_cut_vertex = true;
-                    }
+                if (info[ngbr].parent != null && info[ngbr].parent == curr && info[ngbr].low >= info[curr].discovery) {
+                    info[curr].is_cut_vertex = true;
+                    break;
                 }
             }
         }

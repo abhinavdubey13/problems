@@ -78,27 +78,34 @@ class p12_median_of_2_sorted_arrays {
         // int[] x = { 1, 3, 8, 9, 15 };
         // int[] y = { 7, 11, 18, 19, 21 };
 
-        double median = function(x, y);     
+        double median = function(x, y);
         System.out.println(median);
 
     }
 
     // X.len <= Y.len
+    //shorter len = m
+    //larger len = n
     static double function(int[] arr_X, int[] arr_Y) {
 
         if (arr_X.length > arr_Y.length) {
             return function(arr_Y, arr_X);
         }
 
+        //m <= n
+        int n = arr_Y.length;
+        int m = arr_X.length;
+        int total_len = m + n;
+
         int low = 0;
-        int high = arr_X.length - 1;
+        int high = m - 1;
 
         while (low <= high) {
 
             //part_x and part_y are number of elements from arr_x and arr_y respectively in the left-overall-partition  
             //partition is : [0....partx-1] , [partx.....n] 
             int part_X = low + (high - low) / 2;
-            int part_Y = (arr_X.length + arr_Y.length + 1) / 2 - part_X; //total+1 is mandatory for answer
+            int part_Y = (total_len + 1) / 2 - part_X; //total+1 is mandatory for answer
 
             // System.out.println(part_X + " " + part_Y);
 
@@ -108,12 +115,11 @@ class p12_median_of_2_sorted_arrays {
             int max_left_y = (part_Y == 0) ? Integer.MIN_VALUE : arr_Y[part_Y - 1];
 
             //min in right of X[] and Y[]
-            int min_right_x = (part_X == arr_X.length) ? Integer.MAX_VALUE : arr_X[part_X];
-            int min_right_y = (part_Y == arr_Y.length) ? Integer.MAX_VALUE : arr_Y[part_Y];
+            int min_right_x = (part_X == m) ? Integer.MAX_VALUE : arr_X[part_X];
+            int min_right_y = (part_Y == n) ? Integer.MAX_VALUE : arr_Y[part_Y];
 
             if (max_left_x <= min_right_y && max_left_y <= min_right_x) {
-
-                if ((arr_X.length + arr_Y.length) % 2 == 0) {
+                if (total_len % 2 == 0) {
                     return (double) (Math.max(max_left_x, max_left_y) + Math.min(min_right_x, min_right_y)) / 2;
                 } else {
                     return Math.max(max_left_x, max_left_y);

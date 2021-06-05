@@ -23,10 +23,45 @@ import java.util.*;
  * approach :
  * ============
  * 
+ *
+ * we basically use DFS here , and
+ * 
+ * for each node we maintain 2 main information (there is a 3rd info as well , on_stack)
+ * 
+ * 1. DISCOVERY-TIME : the time at which a node is discoverd first time using DFS
+ * 
+ * 2. LOW-TIME : 
+ *      2.1 the DISCOVERY-TIME of the OLDEST ANCESTOR (back-edge) reachable from the node using 1 back-edge only
+ *      2.2 all nodes belonging to a SCC will have same LOW-TIME
+ * 
+ * 
+ * While 1st property remains constant, 
+ * 2nd one may be updated during recursive DFS calls and used to find back edges to ancestors
+ * 
+ * 
+ * For any vertex if both DISCOVERT and LOW TIME are same after recursive DFS calls to all its adjacent vertices 
+ * then it is either :
+ * 
+ * 1. An individual vertex that is not part of any cycle.
+ * OR
+ * 2. Part of a cycle and so all of its descendent (in DFS tree produced) can reach it (can not reach to its ancestors). 
+ * In other words, we can start from and end at this node. In this case we can keep track of all the descendent to print.
+ * 
+ * 
+ * ======
+ * NOTE : 
+ * ======
+ * only BACK EDGES and TREE EDGES will contribute for SCC
+ * 
+ * 
+ * 
+ * 
+ * ==============
+ * VIDEO LINKS :
+ * ==============
+ * 
  * 1. https://www.youtube.com/watch?v=wUgWX0nc4NY&t=9s&ab_channel=WilliamFiset
- * 
  * 2. https://www.youtube.com/watch?v=ZeDNSeilf-Y&t=1494s&ab_channel=TECHDOSE
- * 
  * 3. https://www.youtube.com/watch?v=trvJsdNCEVA&ab_channel=KashishMehndiratta
  * 
  * 
@@ -36,9 +71,6 @@ import java.util.*;
  * for back edge   : low[i] = min(low[i] , discovery[j])    ===> on confirming a back-edge
  * for cross edge  : do nothing
  *  
- * 
- * 
- * low : represents the minimum reachable discovery time , with atmost 1 back edge
  * 
  *   
  * 
@@ -56,15 +88,15 @@ class p8_tarjan_algo_for_scc {
 class Tarjan {
 
     static void driver() {
-        ArrayList<ArrayList<Integer>> graph = get_graph();
+        List<List<Integer>> graph = get_graph();
         int nodes = graph.size();
         int answer = find_num_scc_using_tarjan(nodes, graph);
         System.out.println("number of SCC : " + answer);
     }
 
-    static ArrayList<ArrayList<Integer>> get_graph() {
+    static List<List<Integer>> get_graph() {
 
-        ArrayList<ArrayList<Integer>> graph = new ArrayList<ArrayList<Integer>>();
+        List<List<Integer>> graph = new LinkedList<>();
 
         // // graph with 7 nodes : expected 2
         // graph.add(new ArrayList<Integer>(Arrays.asList(1))); //neighbours of 0 (directed - edge)
@@ -91,7 +123,7 @@ class Tarjan {
         return graph;
     }
 
-    static int find_num_scc_using_tarjan(int num_nodes, ArrayList<ArrayList<Integer>> graph) {
+    static int find_num_scc_using_tarjan(int num_nodes, List<List<Integer>> graph) {
         int[] discovery = new int[num_nodes]; //this array is also used as visited 
         int[] low = new int[num_nodes];
         boolean[] onStack = new boolean[num_nodes];
@@ -111,8 +143,8 @@ class Tarjan {
         return num_scc[0];
     }
 
-    static void dfs(int curr, ArrayList<ArrayList<Integer>> graph, int[] disc, int[] low, boolean[] onStack,
-            Stack<Integer> stk, int[] time, int[] num_scc) {
+    static void dfs(int curr, List<List<Integer>> graph, int[] disc, int[] low, boolean[] onStack, Stack<Integer> stk,
+            int[] time, int[] num_scc) {
 
         time[0]++;
         disc[curr] = time[0];
@@ -182,13 +214,13 @@ class Revise {
     static int TIMER;
 
     static void driver() {
-        ArrayList<ArrayList<Integer>> graph = Tarjan.get_graph();
+        List<List<Integer>> graph = Tarjan.get_graph();
         int nodes = graph.size();
         int answer = find_num_scc_using_tarjan(nodes, graph);
         System.out.println("number of SCC in revise : " + answer);
     }
 
-    static int find_num_scc_using_tarjan(int num_nodes, ArrayList<ArrayList<Integer>> graph) {
+    static int find_num_scc_using_tarjan(int num_nodes, List<List<Integer>> graph) {
 
         Node_Info[] info = new Node_Info[num_nodes];
 
@@ -199,8 +231,8 @@ class Revise {
 
         TIMER = -1;
         int[] num_of_scc = { 0 };
-
         Stack<Integer> stk = new Stack<>();
+
         for (int i = 0; i < num_nodes; i++) {
             boolean visited = info[i].discovery != -1;
             if (!visited) {
@@ -211,8 +243,7 @@ class Revise {
         return num_of_scc[0];
     }
 
-    static void dfs(int curr, ArrayList<ArrayList<Integer>> graph, Node_Info[] info, Stack<Integer> stk,
-            int[] num_scc) {
+    static void dfs(int curr, List<List<Integer>> graph, Node_Info[] info, Stack<Integer> stk, int[] num_scc) {
 
         TIMER++;
 

@@ -17,7 +17,7 @@ import java.util.*;
  * For example, for character C, we press number 2 three times and accordingly.
  * 
  * Input : HELLO WORLD
- * Output : 4433555555666096667775553
+ * Output : 44-33-555-555-666-0-9-666-777-555-3
  *  
  * 
  */

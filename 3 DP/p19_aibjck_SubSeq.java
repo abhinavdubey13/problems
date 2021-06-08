@@ -3,7 +3,7 @@ import java.util.*;
 
 /**
  * 
- * Given a string, find THE NUMBER OF SUB-SEQ of the form :  aibjck, 
+ * Given a string, find THE NUMBER OF SUB-SEQ of the form :  (a^i)(b^j)(c^k), 
  * 
  * i.e., it consists of i ’a’ characters, followed by j ’b’ characters, followed by k ’c’ characters 
  * where i,j,k >= 1

@@ -107,9 +107,9 @@ class Solution_kth_largest {
         int pivot_val = arr[high];
         int idx_of_pivot = partition(arr, low, high, pivot_val);
 
-        if (k < idx_of_pivot) {
+        if (idx_of_pivot > k) {
             return quick_select(arr, low, idx_of_pivot - 1, k);
-        } else if (k > idx_of_pivot) {
+        } else if (idx_of_pivot < k) {
             return quick_select(arr, idx_of_pivot + 1, high, k);
         } else {
             return arr[idx_of_pivot];

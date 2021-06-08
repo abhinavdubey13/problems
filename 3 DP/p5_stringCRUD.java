@@ -1,6 +1,7 @@
 /**
  * 
- * given source_String(SS) and target_string(TS) , we need to find minimum operations (insert , delete , change) to form TS from SS
+ * given source_String(SS) and target_string(TS) , 
+ * we need to find minimum operations (insert , delete , change) to go to TS from SS
  * 
  * =========
  * example :

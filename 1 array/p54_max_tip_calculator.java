@@ -18,8 +18,8 @@ import java.util.*;
  * ===========
  * total orders = 5 
  * 
- * max orders by A = X =3
- * max orders by B = Y =3
+ * max orders by A => X =3
+ * max orders by B => Y =3
  * 
  * A[] = {1,2,3,4,5}
  * B[] = {5,4,3,2,1}
@@ -32,7 +32,7 @@ import java.util.*;
 
 /**
  * ===========
- * APPROACH :ajndiwe
+ * APPROACH :
  * ===========
  * 
  * dp : not required

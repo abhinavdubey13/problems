@@ -1,32 +1,76 @@
-1 Tell me about experience in past job.
-
-1 OOPS concepts- Polymorphism, Inheritance, Encapsulation, Abstraction.
-
-1 Aggregation and Composition.
-
-1 Design patterns which you have implemented.
-
-1 Write code to implement Singleton design pattern.
-
-1 Design a system to implement options in Pack of cards.
-
-1 Difference between Windows and Unix.
-
-1 Threads, Synchronization, Deadlock.
-
-1. Other subjects which you studied in your academics.
-
-1 Most challenging work you ever faced.
-
-1) Explain what happens in the background when you enter “ls” command on unix shell.
-2) Difference between process and threads.
-3) What is semaphore and mutex. What is Readers-Writers problem? Explain solution with code.
-4) Difference between TCP and UDP.
+- db design patterns
+- Database Indexing and it's working
+- design/internal working of hashmaps , create your own hashmap
+- How to handle the situation when there is load on server, and if the load is occasional?
 
 
-Q1) If I am designing a media player and I want to store songs and play them in random order
+
+- SQL
+  - Sql Query including all the keywords like where, having, count, group by etc.
+  - mysql query  : Few SQL Queries like joins and highest salary in each department.
+  - sql vs no-sql
 
 
-start from : 31
+- trees : 
+    - nodes at dist k 
+    - level order 
+    - right view
+    - AVL
+    - LCA
+    - Print all the paths in a binary tree whose sum is k, where a path may start and end at any node
+    - invert binary tree
+    - given pre and post order , form binary tree
 
 
+- linked list
+    - reverse ll , reverse in group of k
+    - check loop
+    - Number is represented in linked list such that each digit corresponds to a node in linked list. 
+      Add 1 to it. 
+      For example 1999 is represented as (1-> 9-> 9 -> 9) and adding 1 to it should change it to 
+      (2->0->0->0)
+
+
+-array
+    - sort array of 0,1,2 and 0,1
+    - number of times array is rotated
+    - search in sorted rotated array
+    - find missing and repeating number in array
+    - quick sort
+
+-stack and queue  
+    - min stack
+    - stack using queue , q using stack
+
+
+- string
+  - all permutations of Abstraction
+  - smallest substring containing all chars of a string
+  - Given a string, find the longest substring which is palindrome
+  - count all palindromes in a string
+  - i am boy -> yob ma i
+  - i am boy -> boy am i
+
+
+
+-java
+  - multi-threading
+  - OOPS
+  - Equals and hascode methods with example and what if overrides equal and not hashcode
+
+
+
+-misc DSA
+  - spiral traversal of matrix
+  - LRU cache
+
+- diff b/w authentication and authorization
+
+
+-javascript
+    -let , var
+    - arrow functions
+    - call bind apply methods with example
+    - prototypical inheritance example
+    - closures related question multiply(1)(2)(3)
+    - polyfill , currying

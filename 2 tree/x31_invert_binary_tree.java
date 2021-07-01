@@ -71,14 +71,18 @@ public class x31_invert_binary_tree extends HELPER {
 
   }
 
+
+  //note : 1 and 2 can be inter-changed also
   static void function(node curr) {
     if (curr == null) {
       return;
     }
 
+    //operation-1
     function(curr.left);
     function(curr.right);
 
+    //operation-2
     node temp = curr.left;
     curr.left = curr.right;
     curr.right = temp;
